@@ -1,0 +1,747 @@
+@charset "utf-8";
+
+/* Google Fontを使用する場合は以下の設定を使用する */
+/* Hachi Maru Pop  font-family: 'Hachi Maru Pop', sans-serif; */
+/* Yusei Magic　font-family: 'Yusei Magic', sans-serif; */
+
+/* 基本設定 */
+:root {
+    /* 色の指定 */
+    --light-blue: #80ADBF;
+    --dark-blue: #5A758C;
+    --light-yellow: #F2E5BD;
+    --light-gray: #F2F2F0;
+    --orange: #F29472;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+@media (min-width: 768px) and (max-width: 1020px) {
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .container-mini {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+
+/* ボタンの設定 */
+.btn {
+    display: block;
+    width: 200px;
+    /* height: 10px; */
+    text-align: center;
+    font-size: 18px;
+    padding: 8px 20px;
+    color: #333;
+    text-decoration: none;
+    border: solid 4px var(--orange);
+    border: solid 4px #F29472;
+    border-radius: 5px;
+    transition: 0.3s;
+    box-shadow: 0 0 5px #888;
+}
+.btn:hover {
+    transform: translateY(-5px);
+}
+
+/* 画面のマスク */
+.mask {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+.mask.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ヘッダー */
+header {
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 100;
+}
+header.nohero {
+    border-bottom: solid 1px #aaa;
+}
+header .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.headA {
+    display: inline-block;
+    /* line-height: 70px; */
+    height: 70px;
+    letter-spacing: 0.05em;
+    padding: 0 20px;
+    font-family: 'Hachi Maru Pop', sans-serif;
+    font-size: 30px;
+}
+.headA a {
+    text-decoration: none;
+    color: #000;
+}
+.headB {
+    display: block;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    z-index: 100;
+}
+.headB div {
+    width: 60%;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000;
+    transition: 0.3s;
+}
+.headB div:nth-of-type(1) {
+    transform-origin: 0 50%;
+    transform: translate(-50%, -15px);
+}
+.headB div:nth-of-type(3) {
+    transform-origin: 0 50%;
+    transform: translate(-50%, 15px);
+}
+
+.headB.open div:nth-of-type(1) {
+    transform: rotate(45deg) translate(-50%, 0);
+}
+.headB.open div:nth-of-type(2) {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}
+.headB.open div:nth-of-type(3) {
+    transform: rotate(-45deg) translate(-50%, 0);
+}
+
+.headC {
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    list-style: none;
+    flex: 100%;
+    transition: 0.3s;
+    position: absolute;
+    top: 70px;
+    z-index: 99;
+}
+.headC li {
+    transform: translateY(10px);
+    transition: 0.5s;
+}
+.headC a {
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 20px;
+    color: #fff;
+}
+.headC a:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+.headC.open {
+    opacity: 1;
+    visibility: visible;
+}
+.headC.open li {
+    transform: translateY(0%);
+}
+.headC.open li:nth-of-type(2) {
+    transform: translateY(0px);
+    transition-delay: 0.1s;
+}
+.headC.open li:nth-of-type(3) {
+    transform: translateY(0px);
+    transition-delay: 0.2s;
+}
+.headC.open li:nth-of-type(4) {
+    transform: translateY(0px);
+    transition-delay: 0.3s;
+}
+
+@media (min-width: 768px) {
+    .headB {
+        display: none;
+    }
+    .headC {
+        width: auto;
+        opacity: 1;
+        visibility: visible;
+        margin-top: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex: auto;
+        transition: 0;
+        position: static;
+    }
+    .headC li {
+        transform: none;
+        transition: 0;
+    }
+    .headC a {
+        color: #000;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* ヒーローイメージ */
+.hero {
+    /* background-color: var(--orange);
+    background-color: #F29472;
+    height: 100vh; */
+    background-image: url(../img/header-image.jpg);
+    background-position: 25% 50%;
+    background-size: cover;
+    height: 100vh;
+}
+.hero .container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100vh;
+}
+/* .hero h1 {
+    color: #000;
+    font-size: 70px;
+    font-family: 'Hachi Maru Pop', sans-serif;
+} */
+.hero p {
+    color: #000;
+    font-size: 22px;
+    line-height: 2;
+    font-family: 'Hachi Maru Pop', sans-serif;
+}
+
+@media (min-width: 768px) {
+    .hero {
+        background-position: center;
+    }
+    /* .hero h1 {
+        font-size: 100px;
+    } */
+    .hero p {
+        font-size: 32px;
+    }
+}
+
+/* コンテンツ: 趣味の紹介 */
+.content {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.content .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 50px 20px 20px;
+    transform: translateY(50px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s;
+}
+.content .box1.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+.content .box2.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+.content .box3.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+.content span {
+    display: block;
+    margin-top: 20px;
+    font-size: 50px;
+    width: 2em;
+    line-height: 2em;
+    color: #fff;
+    background-color: #ccc;
+    text-align: center;
+    border-radius: 50%;
+}
+.content h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+.content p {
+    margin-top: 15px;
+    font-size: 20px;
+    line-height: 1.8;
+}
+.content .btn {
+    /* justify-items: baseline; */
+    align-self: end;
+    margin: 25px auto;
+}
+
+@media (min-width: 768px) {
+    .content .container {
+        display: flex;
+    }
+    .content .box {
+        flex: 300px;
+    }
+    .content span {
+        flex: 1 1 40%;
+    }
+    .content .text {
+        flex: 1 1 50%;
+    }
+    .content a {
+        flex: 0 0 5%;
+        align-self: baseline;
+    }
+}
+
+/* 新着情報 */
+.news {
+    margin-top: 60px;
+    padding-top: 10px;
+    padding-bottom: 60px;
+    background-color: #80ADBF;
+    background-color: var(--light-blue);
+    color: #fff;
+    transform: translateY(50px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s;
+}
+.news.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+.news .container {
+    margin: 0 auto;
+}
+.news h2 {
+    border-left: solid 10px var(--light-yellow);
+    border-left: solid 10px #F2E5BD;
+    border-bottom: solid 2px var(--light-yellow);
+    border-bottom: solid 2px #F2E5BD;
+    line-height: 1.8;
+    padding-left: 20px;
+    font-size: 24px;
+    margin: 30px 20px 0 20px;
+}
+.news table {
+    margin: 0 20px;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+.news th {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 30px;
+    text-align: left;
+    word-break: keep-all;
+}
+.news td {
+    line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+    .news h2 {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .news table {
+        margin: 15px 100px;
+        font-size: 22px;
+    }
+}
+
+/* プロフィール */
+.profile {
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(50px);
+    transition: 1s;
+}
+.profile.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+.profile .container {
+    padding: 40px 20px;
+}
+.profile img {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+.profile .text {
+    padding: 10px;
+}
+.profile .text h2 {
+    border-left: solid 10px var(--light-yellow);
+    border-left: solid 10px #F2E5BD;
+    border-bottom: solid 2px var(--light-yellow);
+    border-bottom: solid 2px #F2E5BD;
+    line-height: 1.8;
+    padding-left: 20px;
+    font-size: 24px;
+    margin-top: 30px;
+}
+.profile .text p {
+    font-size: 20px;
+    line-height: 1.8;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 15px;
+}
+
+@media (min-width: 768px) {
+    .profile .container {
+        padding: 0;
+        margin: 0 auto;
+        display: flex;
+    }
+    .profile .photo {
+        flex: 1;
+    }
+    .profile img {
+        width: 100%;
+    }
+    .profile .text {
+        padding: 50px;
+        flex: 1;
+    }
+    .profile .text h2 {
+        padding-left: 10px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+}
+
+/* フッター */
+footer {
+    background-color: #5A758C;
+    background-color: var(--dark-blue);
+}
+footer .container {
+    padding: 30px;
+    color: #fff;
+}
+footer h2 {
+    font-size: 20px;
+    line-height: 2em;
+    border-bottom: solid 1px #fff;
+    margin-bottom: 15px;
+}
+footer ul {
+    margin: 0;
+}
+footer ul a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+footer ul a:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+footer p {
+    margin: 20px auto 0;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    footer ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+/* 各種カテゴリーのトップページ */
+.top {
+    margin-top: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.top h1 {
+    font-size: 24px;
+    line-height: 1.8;
+    padding-left: 20px;
+    border-left: solid 10px var(--light-yellow);
+    border-left: solid 10px #F2E5BD;
+    border-bottom: solid 2px var(--light-yellow);
+    border-bottom: solid 2px #F2E5BD;
+}
+.top p {
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 20px 30px;
+}
+.top.noposts {
+    margin-bottom: 50px;
+}
+.articles {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.articles h1 {
+    margin-top: 30px;
+    font-size: 24px;
+    line-height: 1.8;
+    padding-left: 20px;
+    border-left: solid 10px var(--light-yellow);
+    border-left: solid 10px #F2E5BD;
+    border-bottom: solid 2px var(--light-yellow);
+    border-bottom: solid 2px #F2E5BD;
+}
+.articles p {
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+.articles .posts {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.articles .post {
+    flex: 1 1 300px;
+    display: flex;
+    margin: 10px;
+}
+.articles a {
+    display: block;
+    border: solid 1px #ccc;
+    flex: 1;
+    color: #000;
+    text-decoration: none;
+}
+.articles a:hover {
+    opacity: 0.8;
+}
+.articles img {
+    width: 100%;
+}
+.articles .post h2 {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 0;
+    padding: 0;
+}
+.articles .post p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 10px 20px;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .top {
+        margin-top: 130px;
+    }
+    .top h1 {
+        font-size: 28px;
+    }
+    .top p {
+        font-size: 20px;
+    }
+    .articles h1 {
+        font-size: 28px;
+    }
+    .articles p {
+        font-size: 20px;
+        margin-bottom: 50px;
+    }
+    .articles .post h2 {
+        font-size: 20px;
+    }
+    .articles .post p {
+        font-size: 16px;
+    }
+}
+
+/* プライバシーポリシー */
+.privacypolicy {
+    margin-top: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+.privacypolicy h1 {
+    font-size: 24px;
+    line-height: 1.8;
+    padding-left: 20px;
+    border-left: solid 10px var(--light-yellow);
+    border-left: solid 10px #F2E5BD;
+    border-bottom: solid 2px var(--light-yellow);
+    border-bottom: solid 2px #F2E5BD;
+}
+.privacypolicy h2 {
+    display: inline-block;
+    border-bottom: 2px solid var(--light-yellow);
+    border-bottom: 2px solid #F2E5BD;
+    font-size: 22px;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+.privacypolicy p {
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 20px 30px;
+}
+.privacypolicy h2 + p {
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 10px 30px;
+}
+.privacypolicy ul {
+    list-style: outside;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.privacypolicy ul li {
+    font-size: 18px;
+    line-height: 1.8;
+    padding-bottom: 10px;
+}
+.privacypolicy a {
+    color: #5A758C;
+    color: var(--dark-blue);
+}
+.privacypolicy a:hover {
+    color: #80ADBF;
+    color: var(--light-blue);
+}
+
+@media (min-width: 768px) {
+    .privacypolicy {
+        margin-top: 130px;
+    }
+    .privacypolicy h1 {
+        font-size: 28px;
+    }
+    .privacypolicy h2 {
+        font-size: 26px;
+    }
+    .privacypolicy p {
+        font-size: 20px;
+    }
+}
+
+/* お問い合わせフォーム */
+.contactform {
+    font-size: 16px;
+    width: 80%;
+    margin: 30px auto;
+}
+.contactform > div {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+.contactform input {
+    margin-top: 10px;
+    width: 100%;
+}
+.contactform textarea {
+    margin-top: 10px;
+    width: 100%;
+}
+.contactform button {
+    font-size: 16px;
+    display: inline-block;
+    border: solid 2px var(--orange);
+    border: solid 2px #F29472;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+.contactform button:hover {
+    opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+    .contactform {
+        max-width: 700px;
+        width: 100%;
+        font-size: 18px;
+        margin: 20px auto;
+    }
+    .contactform > div {
+        flex-direction: row;
+        align-items: center;
+    }
+    .contactform > div > div {
+        flex: 3;
+    }
+    .contactform label {
+        display: block;
+        flex: 2;
+    }
+    .contactform #name {
+        flex: 3;
+    }
+    .contactform #email {
+        flex: 3;
+    }
+    .contactform #content {
+        flex: 3;
+    }
+    .contactform button {
+        font-size: 18px;
+    }
+}
